@@ -16,4 +16,7 @@ class Question < ApplicationRecord
   # Если задан пустой текст вопроса (поле text пустое), объект не будет сохранен
   # в базу.
   validates :user, :text, presence: true
+
+  # Проверка максимальной длины текста вопроса (максимум 255 символов)
+  validates :text, length: {maximum: 255}
 end
