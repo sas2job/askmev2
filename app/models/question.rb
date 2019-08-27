@@ -4,4 +4,6 @@
 # вопросе.
 
 class Question < ApplicationRecord
+  # Эта валидация препятствует созданию вопросов, у которых поле text пустое, объект не будет сохранен в базу.
+  validates :text, presence: true
 end
