@@ -12,6 +12,8 @@ class Question < ApplicationRecord
   # равный question.user_id.
   belongs_to :user  
 
-  # Эта валидация препятствует созданию вопросов, у которых поле text пустое, объект не будет сохранен в базу.
-  validates :text, presence: true
+  # Эта валидация препятствует созданию вопросов, у которых нет пользователя.
+  # Если задан пустой текст вопроса (поле text пустое), объект не будет сохранен
+  # в базу.
+  validates :user, :text, presence: true
 end
