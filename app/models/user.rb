@@ -35,6 +35,10 @@ class User < ApplicationRecord
   # Валидация длины юзернейма пользователя до 40 символов
   validates :username, :length => {:maximum => 40}
   
+  # Валидация, которая проверяет формат поля username, используя регулярное выражение.
+  # только латинские буквы, цифры, и знак _
+  validates_format_of :username, :with => /\A[a-z0-9_]{4,16}\z/
+
   # Валидация, которая проверяет формат поля email.
   # В email должен присутствовать символ электронной почты
   validates_format_of :email, with: /@/, message: 'is not valid'
