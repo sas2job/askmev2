@@ -31,7 +31,10 @@ class User < ApplicationRecord
   # базе данных уже есть записи с такими email и/или username, объект не будет
   # сохранен в базу.
   validates :email, :username, uniqueness: true
-
+  
+  # Валидация длины юзернейма пользователя до 40 символов
+  validates :username, :length => {:maximum => 40}
+  
   # Валидация, которая проверяет формат поля email.
   # В email должен присутствовать символ электронной почты
   validates_format_of :email, with: /@/, message: 'is not valid'
