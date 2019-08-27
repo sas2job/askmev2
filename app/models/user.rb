@@ -32,6 +32,10 @@ class User < ApplicationRecord
   # сохранен в базу.
   validates :email, :username, uniqueness: true
 
+  # Валидация, которая проверяет формат поля email.
+  # В email должен присутствовать символ электронной почты
+  validates_format_of :email, with: /@/, message: 'is not valid'
+
   # Поле password нужно только при создании (create) нового юзера — регистрации.
   # При аутентификации (логине) мы будем сравнивать уже зашифрованные поля.
   # Другой способ записи:
