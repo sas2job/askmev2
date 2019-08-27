@@ -23,6 +23,9 @@ class User < ApplicationRecord
   # значением user_id равный user.id.
   has_many :questions
 
+  # Callbacks
+  before_validation :set_username_downcase
+  
   # Валидация, которая проверяет, что поля email и username не пустые и не равны
   # nil. Если не задан email и username, объект не будет сохранен в базу.
   validates :email, :username, presence: true
@@ -108,5 +111,11 @@ class User < ApplicationRecord
 
     # Иначе, возвращаем nil
     nil
+  end
+  
+  # Instance methods
+  private
+  def set_username_downcase
+    self.username = username.downcase 
   end
 end
