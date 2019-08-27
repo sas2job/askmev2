@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
-    def show
-        @time = Time.now
-        @hello = "Привет!"
-    end
+  def index
+  end
+
+  def new
+  end
+
+  def edit
+  end
+
+  def show
+  end
 end
