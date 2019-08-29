@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Askmev2</title>
+    <meta charset="UTF-8"/>
+    <title>Good questions</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="header">
+      <div class="header-logo">
+        <h1 class="header-title">Хорошие вопросы</h1>
+      </div>
+    </div>
+
+    <div class="content">
+      <%# Вместо волшебной конструкции yield рельсы подставят то, что срендерит %>
+      <%# шаблон для нужной нам страницы, например, users/show %>
+      <%= yield %>
+    </div>
   </body>
 </html>
