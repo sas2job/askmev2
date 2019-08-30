@@ -24,7 +24,8 @@ class UsersController < ApplicationController
       avatar_url: 'https://i.pravatar.cc/302')
     # Болванка вопроса
       @questions = [
-        Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016'))
+        Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016')),
+        Question.new(text: 'Как жизнь?', created_at: Date.parse('27.03.2016'))
       ]  
   end
 end
