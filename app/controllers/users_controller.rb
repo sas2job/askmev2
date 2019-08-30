@@ -20,7 +20,8 @@ class UsersController < ApplicationController
     # Болванка пользователя
     @user = User.new(
       name: 'Alexander',
-      username: 'Alex',
-      avatar_url: 'https://i.pravatar.cc/302')
+      username: 'Alex')
+      # username: 'Alex',
+      # avatar_url: 'https://i.pravatar.cc/302')
   end
 end
