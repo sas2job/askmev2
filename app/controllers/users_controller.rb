@@ -20,8 +20,11 @@ class UsersController < ApplicationController
     # Болванка пользователя
     @user = User.new(
       name: 'Alexander',
-      username: 'Alex')
-      # username: 'Alex',
-      # avatar_url: 'https://i.pravatar.cc/302')
+      username: 'Alex',
+      avatar_url: 'https://i.pravatar.cc/302')
+    # Болванка вопроса
+      @questions = [
+        Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016'))
+      ]  
   end
 end
