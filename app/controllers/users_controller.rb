@@ -6,6 +6,18 @@
 #
 class UsersController < ApplicationController
   def index
+    # Создан массив из двух болванок пользователей. Для создания фейковой
+    # модели вызывается метод User.new, который создает модель, не
+    # записывая её в базу.
+    @users = [
+      User.new(
+        id: 1,
+        name: 'Alexander',
+        username: 'Alex',
+        avatar_url: 'https://i.pravatar.cc/302'
+      ),
+      User.new(id: 2, name: 'UserExample', username: 'UsernameExample')
+    ]
   end
 
   def new
