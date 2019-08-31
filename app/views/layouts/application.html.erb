@@ -12,15 +12,20 @@
 
   <body>
     <div class="header">
-      <div class="header-logo">
-        <h1 class="header-title"><%= link_to "Хорошие вопросы", root_path %></h1>
+      <div class="container">
+        <div class="header-logo">
+          <%# Ссылка на главную страницу сайта (root_path) %>
+            <h1 class="header-title"><%= link_to "Хорошие вопросы", root_path %></h1>
+          </div>
       </div>
     </div>
 
     <div class="content">
-      <%# Вместо волшебной конструкции yield рельсы подставят то, что срендерит %>
-      <%# шаблон для нужной нам страницы, например, users/show %>
-      <%= yield %>
+      <div class="container">
+        <%# Вместо конструкции yield рельсы подставят то, что срендерит %>
+        <%# шаблон для нужной страницы, например, users/show %>
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
