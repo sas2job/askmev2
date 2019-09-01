@@ -42,5 +42,8 @@ class UsersController < ApplicationController
 
     # Болванка для нового вопроса
     @new_question = Question.new
+    
+    # Счетчик количества вопросов
+    @questions_count = @questions.count
   end
 end
