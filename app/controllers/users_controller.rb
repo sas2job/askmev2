@@ -21,6 +21,8 @@ class UsersController < ApplicationController
   end
 
   def new
+    # Создаем болванку нового пользователя.
+    @user = User.new
   end
 
   def edit
