@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   # Эти две строчки добавляют ресурсы для пользователей и вопросов. Ресурс — это
   # набор путей для управления соответствующей моделью. 
-  resources :users
+  resources :users, except: [:destroy]
   resources :questions
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get 'show' => 'users#show'
 end
