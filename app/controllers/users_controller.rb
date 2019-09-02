@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     # Иначе, создаем нового пользователя с параметрами, которые нам предоставит
     # метод user_params.
     @user = User.new(user_params)
-
+    
     # Пытаемся сохранить пользователя.
     if @user.save
       # Если удалось, отправляем пользователя на главную с сообщение, что
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-    
+
   def edit
   end
 
@@ -72,5 +72,16 @@ class UsersController < ApplicationController
     
     # Счетчик количества вопросов
     @questions_count = @questions.count
+  end
+
+  private
+
+  # Явно задаем список разрешенных параметров для модели User. Говорим, что
+  # у хэша params должен быть ключ :user. Значением этого ключа может быть хэш с
+  # ключами: :email, :password, :password_confirmation, :name, :username и
+  # :avatar_url. Другие ключи будут отброшены.
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :name, :username, :avatar_url)
   end
 end
