@@ -8,6 +8,11 @@ class UsersController < ApplicationController
   # Загружаем юзера из базы для экшенов кроме :index, :create, :new
   before_action :load_user, except: [:index, :create, :new]
 
+  # Проверяем имеет ли юзер доступ к экшену, делаем это для всех действий, кроме
+  # :index, :new, :create, :show — к этим действиям есть доступ у всех, даже у
+  # тех, у кого вообще нет аккаунта на нашем сайте.
+  before_action :authorize_user, except: [:index, :new, :create, :show]
+
   def index
     @users = User.all
   end
@@ -95,6 +100,13 @@ class UsersController < ApplicationController
 
   private
 
+  # Если загруженный из базы юзер и текущий залогиненный не совпадают — посылаем
+  # его с помощью описанного в контроллере ApplicationController метода
+  # reject_user.
+  def authorize_user
+    reject_user unless @user == current_user
+  end
+    
   # Загружаем из базы запрошенного юзера, находя его по params[:id].
   def load_user
     @user ||= User.find params[:id]
