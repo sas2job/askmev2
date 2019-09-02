@@ -50,7 +50,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # Действие edit будет отзываться по адресу /users/:id/edit, например,
+  # /users/1/edit
+  #
+  # Перед этим действием сработает before_action :load_user и в переменной @user
+  # у нас будет лежать пользовать с нужным id равным params[:id].
   def edit
+    @user = User.find params[:id]
   end
 
   # Это действие отзывается, когда пользователь заходит по адресу /users/:id,
