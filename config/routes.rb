@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   # Эти две строчки добавляют ресурсы для пользователей и вопросов. Ресурс — это
   # набор путей для управления соответствующей моделью. 
   resources :users, except: [:destroy]
+  # Ресурс сессий, только new, create, destroy
+  resources :sessions, only: [:new, :create, :destroy]  
   resources :questions
 end
