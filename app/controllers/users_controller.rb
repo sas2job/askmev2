@@ -54,22 +54,18 @@ class UsersController < ApplicationController
   end
 
   # Это действие отзывается, когда пользователь заходит по адресу /users/:id,
-  # например /users/1.
+  # например /users/1
+  #
+  # Перед этим действием сработает before_action :load_user и в переменной @user
+  # у нас будет лежать пользовать с нужным id равным params[:id].
   def show
-    # Болванка пользователя
-    @user = User.new(
-      name: 'Alexander',
-      username: 'Alex',
-      avatar_url: 'https://i.pravatar.cc/302')
-    # Болванка вопроса
-      @questions = [
-        Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016')),
-        Question.new(text: 'Как жизнь?', created_at: Date.parse('27.03.2016'))
-      ]  
-
-    # Болванка для нового вопроса
-    @new_question = Question.new
-    
+    @user = User.find params[:id]
+    # берём вопросы у найденного юзера
+    @questions = @user.questions.order(created_at: :desc)
+  
+    # Для формы нового вопроса создаём заготовку, вызывая build у результата вызова метода @user.questions.
+    @new_question = @user.questions.build
+   
     # Счетчик количества вопросов
     @questions_count = @questions.count
   end
