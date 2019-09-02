@@ -12,8 +12,13 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # Действие new будет отзываться по адресу /users/new
   def new
-    # Создаем болванку нового пользователя.
+    # Если пользователь уже авторизован, ему не нужна новая учетная запись,
+    # отправляем его на главную с сообщением.
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+
+    # Иначе, создаем болванку нового пользователя.
     @user = User.new
   end
 
@@ -22,7 +27,7 @@ class UsersController < ApplicationController
   def create
     # Если пользователь уже авторизован, ему не нужна новая учетная запись,
     # отправляем его на главную с сообщением.
-    # redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
 
     # Иначе, создаем нового пользователя с параметрами, которые нам предоставит
     # метод user_params.
