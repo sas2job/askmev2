@@ -5,19 +5,11 @@
 #   3. Позволять пользователю редактировать свою страницу
 #
 class UsersController < ApplicationController
+  # Загружаем юзера из базы для экшенов кроме :index, :create, :new
+  before_action :load_user, except: [:index, :create, :new]
+
   def index
-    # Создан массив из двух болванок пользователей. Для создания фейковой
-    # модели вызывается метод User.new, который создает модель, не
-    # записывая её в базу.
-    @users = [
-      User.new(
-        id: 1,
-        name: 'Alexander',
-        username: 'Alex',
-        avatar_url: 'https://i.pravatar.cc/302'
-      ),
-      User.new(id: 2, name: 'UserExample', username: 'UsernameExample')
-    ]
+    @users = User.all
   end
 
   def new
@@ -30,7 +22,7 @@ class UsersController < ApplicationController
   def create
     # Если пользователь уже авторизован, ему не нужна новая учетная запись,
     # отправляем его на главную с сообщением.
-    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+    # redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
 
     # Иначе, создаем нового пользователя с параметрами, которые нам предоставит
     # метод user_params.
@@ -40,7 +32,7 @@ class UsersController < ApplicationController
     if @user.save
       # Если удалось, отправляем пользователя на главную с сообщение, что
       # пользователь создан.
-      redirect_to root_url, notice: 'Пользователь успешно зарегестрирован!'
+      redirect_to root_url, notice: 'Пользователь успешно зарегистрирован!'
     else
       # Если не удалось по какой-то причине сохранить пользователя, то рисуем
       # (обратите внимание, это не редирект), страницу new с формой
@@ -56,7 +48,28 @@ class UsersController < ApplicationController
   # Перед этим действием сработает before_action :load_user и в переменной @user
   # у нас будет лежать пользовать с нужным id равным params[:id].
   def edit
-    @user = User.find params[:id]
+  end
+
+  # Действие update будет отзываться при PUT-запросе из формы редактирования
+  # пользователя, которая находится по адресу /users/:id, например,
+  # /users/1
+  #
+  # Перед этим действием сработает before_action :load_user и в переменной @user
+  # у нас будет лежать пользовать с нужным id равным params[:id].
+  def update
+    # Аналогично create, мы получаем параметры нового (обновленного)
+    # пользователя с помощью метода user_params, и пытаемся обновить @user с
+    # этими значениями.
+    if @user.update(user_params)
+      # Если получилось, отправялем пользователя на его страницу с сообщением,
+      # что пользователь успешно обновлен.
+      redirect_to user_path(@user), notice: 'Данные обновлены'
+    else
+      # Если не получилось, как и в create рисуем страницу редактирования
+      # пользователя, на которой нам будет доступен объект @user, содержащий
+      # информацию об ошибках валидации, которые отобразит форма.
+      render 'edit'
+    end
   end
 
   # Это действие отзывается, когда пользователь заходит по адресу /users/:id,
@@ -65,7 +78,6 @@ class UsersController < ApplicationController
   # Перед этим действием сработает before_action :load_user и в переменной @user
   # у нас будет лежать пользовать с нужным id равным params[:id].
   def show
-    @user = User.find params[:id]
     # берём вопросы у найденного юзера
     @questions = @user.questions.order(created_at: :desc)
   
@@ -77,6 +89,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  # Загружаем из базы запрошенного юзера, находя его по params[:id].
+  def load_user
+    @user ||= User.find params[:id]
+  end
 
   # Явно задаем список разрешенных параметров для модели User. Говорим, что
   # у хэша params должен быть ключ :user. Значением этого ключа может быть хэш с
