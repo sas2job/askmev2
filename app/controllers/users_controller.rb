@@ -96,6 +96,10 @@ class UsersController < ApplicationController
    
     # Счетчик количества вопросов
     @questions_count = @questions.count
+    # Счетчик количества отвеченных вопросов
+    @answers_count = @questions.where.not(answer: nil).count
+    # Счетчик количества неотвеченных вопросов
+    @unanswered_count = @questions_count - @answers_count
   end
 
   private
