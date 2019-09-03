@@ -1,3 +1,7 @@
+# Модуль хэлпера ApplicationHelper
+#
+# В этом файле мы можем писать вспомогательные методы (хелперы) для шаблонов,
+# (представлений, вьюх) нашего приложения
 module ApplicationHelper
   # Этот метод возвращает ссылку на аватарку пользователя, если она у него есть.
   # Или ссылку на дефолтную аватарку, которую положим в app/assets/images
@@ -21,5 +25,10 @@ module ApplicationHelper
     return вопроса if ostatok.between?(2, 4)
 
     return вопросов if ostatok.between?(5, 9) || ostatok.zero?
+  end
+  
+  # Хелпер, рисующий span тэг с иконкой из font-awesome
+  def fa_icon(icon_class)
+    content_tag 'span', '', class: "fa fa-#{icon_class}"
   end
 end
