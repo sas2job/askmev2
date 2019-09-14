@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   # Callbacks
   before_validation :set_username_downcase
-  
+
   # Валидация, которая проверяет, что поля email и username не пустые и не равны
   # nil. Если не задан email и username, объект не будет сохранен в базу.
   validates :email, :username, presence: true
@@ -34,10 +34,10 @@ class User < ApplicationRecord
   # базе данных уже есть записи с такими email и/или username, объект не будет
   # сохранен в базу.
   validates :email, :username, uniqueness: true
-  
+
   # Валидация длины юзернейма пользователя до 40 символов
   validates :username, :length => {:maximum => 40}
-  
+
   # Валидация, которая проверяет формат поля username, используя регулярное выражение.
   # только латинские буквы, цифры, и знак _
   validates_format_of :username, :with => /\A[a-z0-9_]{4,16}\z/
@@ -45,6 +45,9 @@ class User < ApplicationRecord
   # Валидация, которая проверяет формат поля email.
   # В email должен присутствовать символ электронной почты
   validates_format_of :email, with: /@/, message: 'is not valid'
+
+  # Валидация фона аватара
+  validates_format_of :background_color, :with => /\A#?(?:[A-F0-9]{3}){1,2}\z/i
 
   # Поле password нужно только при создании (create) нового юзера — регистрации.
   # При аутентификации (логине) мы будем сравнивать уже зашифрованные поля.
@@ -112,10 +115,10 @@ class User < ApplicationRecord
     # Иначе, возвращаем nil
     nil
   end
-  
+
   # Instance methods
   private
   def set_username_downcase
-    self.username = username.downcase 
+    self.username = username.downcase
   end
 end
