@@ -10,7 +10,11 @@ class Question < ApplicationRecord
   # Когда вызывается метод user у экземпляра класса Question, рельсы
   # поймут это как просьбу найти в базе объект класса User со значением id
   # равный question.user_id.
-  belongs_to :user  
+  belongs_to :user
+
+  has_many :hashtags_questions
+
+  has_many :hashtags, through: :hashtags_questions
 
   belongs_to :author, class_name: 'User', optional: true
 
@@ -21,4 +25,14 @@ class Question < ApplicationRecord
 
   # Проверка максимальной длины текста вопроса (максимум 255 символов)
   validates :text, length: {maximum: 255}
+
+  before_save :scan_hashtags
+
+  private
+  def scan_hashtags
+    hashtags_questions.clear
+    "#{text} #{answer}".scan(Hashtag::REGEXP).uniq.each do |name|
+      hashtags << Hashtag.find_or_create_by!(name: name)
+    end
+  end
 end

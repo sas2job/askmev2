@@ -1,6 +1,6 @@
 class HashtagsQuestion < ApplicationRecord
     belongs_to :hashtag
-    belongs_to :questions
+    belongs_to :question
 
-    validates: :hashtag_id, uniqueness: {scope: :question_id}
+    validates :hashtag_id, uniqueness: {scope: :question_id}
 end

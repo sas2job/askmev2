@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @hashtags = Hashtag.order(:name)
   end
 
   # Действие new будет отзываться по адресу /users/new
@@ -37,7 +38,7 @@ class UsersController < ApplicationController
     # Иначе, создаем нового пользователя с параметрами, которые нам предоставит
     # метод user_params.
     @user = User.new(user_params)
-    
+
     # Пытаемся сохранить пользователя.
     if @user.save
       # Если удалось, отправляем пользователя на главную с сообщение, что
@@ -92,10 +93,10 @@ class UsersController < ApplicationController
   def show
     # берём вопросы у найденного юзера
     @questions = @user.questions.order(created_at: :desc)
-  
+
     # Для формы нового вопроса создаём заготовку, вызывая build у результата вызова метода @user.questions.
     @new_question = @user.questions.build
-   
+
     # Счетчик количества вопросов
     @questions_count = @questions.count
     # Счетчик количества отвеченных вопросов
@@ -109,7 +110,7 @@ class UsersController < ApplicationController
     reset_session
     redirect_to root_url, notice: 'Ваш аккаунт успешно удален.'
   end
-  
+
   private
 
   # Если загруженный из базы юзер и текущий залогиненный не совпадают — посылаем
@@ -118,7 +119,7 @@ class UsersController < ApplicationController
   def authorize_user
     reject_user unless @user == current_user
   end
-    
+
   # Загружаем из базы запрошенного юзера, находя его по params[:id].
   def load_user
     @user ||= User.find params[:id]

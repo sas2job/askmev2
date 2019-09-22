@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   # Ресурс вопросов (кроме экшенов :show, :new, :index)
   resources :questions, except: [:show, :new, :index]
 
+  resources :hashtags, only: [:show]
+
   # Синонимы путей — в дополнение к созданным в ресурсах выше.
   #
   get 'sign_up' => 'users#new'

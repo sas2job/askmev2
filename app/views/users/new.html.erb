@@ -42,6 +42,11 @@
         <%= f.text_field :name, class: 'form-text-field' %>
       </div>
 
+      <div class="form-field color-field">
+        <%= f.label 'Выберите цвет фона для аватара', class: 'form-label' %>
+        <%= f.color_field :background_color %>
+      </div>
+
       <div class="form-field">
         <%= f.label :password, 'Пароль', class: 'form-label' %>
         <%= f.password_field :password, class: 'form-text-field' %>
