@@ -47,7 +47,7 @@ class User < ApplicationRecord
   validates_format_of :email, with: /@/, message: 'is not valid'
 
   # Валидация фона аватара
-  validates_format_of :background_color, :with => /^#([A-Fa-f0-9]{6})$/
+  validates_format_of :background_color, :with => /\A#([A-Fa-f0-9]{6})\z/
 
   # Поле password нужно только при создании (create) нового юзера — регистрации.
   # При аутентификации (логине) мы будем сравнивать уже зашифрованные поля.
