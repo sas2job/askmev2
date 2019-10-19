@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Askme
 
-Things you may want to cover:
+Web application for asking and answering varoius questions
 
-* Ruby version
+[Askme](https://askmev2.herokuapp.com) - heroku deployed example
 
-* System dependencies
+### Requirements
 
-* Configuration
+`ruby >= 2.6.2`
 
-* Database creation
+`rails ~> 5.2.0`
 
-* Database initialization
+### Installation & using
 
-* How to run the test suite
+In `terminal` or `cmd`
 
-* Services (job queues, cache servers, search engines, etc.)
+- `$ git clone git@github.com:sas2job/askmev2.git`
 
-* Deployment instructions
+- `$ gem install bundler` - if needed
 
-* ...
+- `$ bundle install`
+
+- `$ rails s` for server starting
+
+Then open `http://localhost:3000` at your web-browser
